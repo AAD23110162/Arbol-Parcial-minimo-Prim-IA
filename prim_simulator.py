@@ -5,10 +5,13 @@ Uso:
   python prim_simulator.py --graph example_graph.json --start A [--pause]
 
 El formato de JSON esperado está en `example_graph.json` (nodos y lista de aristas).
+
+Autor: Alejandro Aguirre Díaz
 """
 import json
 import heapq
 import argparse
+import sys
 from typing import Dict, List, Tuple, Set
 
 
@@ -96,14 +99,27 @@ class PrimSimulator:
 
 def main():
     parser = argparse.ArgumentParser(description='Simulador paso a paso del algoritmo de Prim')
-    parser.add_argument('--graph', '-g', required=True, help='Ruta al JSON del grafo')
-    parser.add_argument('--start', '-s', required=True, help='Vértice inicial (token)')
+    parser.add_argument('--graph', '-g', default='example_graph.json', help='Ruta al JSON del grafo (default: example_graph.json)')
+    parser.add_argument('--start', '-s', default=None, help='Vértice inicial (token). Si no se especifica, se usa el primer nodo del grafo')
     parser.add_argument('--pause', '-p', action='store_true', help='Pausar entre pasos (presiona Enter)')
     args = parser.parse_args()
 
-    graph = load_graph_from_json(args.graph)
+    try:
+        graph = load_graph_from_json(args.graph)
+    except FileNotFoundError:
+        print(f"Error: archivo de grafo no encontrado: {args.graph}")
+        sys.exit(1)
+
+    if not graph:
+        print(f"Error: el grafo cargado desde {args.graph} está vacío o no tiene nodos.")
+        sys.exit(1)
+
+    start_node = args.start if args.start is not None else next(iter(graph))
+    print(f"Usando grafo: {args.graph}")
+    print(f"Vértice inicial: {start_node}\n")
+
     sim = PrimSimulator(graph)
-    sim.run(args.start, pause=args.pause)
+    sim.run(start_node, pause=args.pause)
 
 
 if __name__ == '__main__':
