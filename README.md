@@ -1,7 +1,7 @@
 # Arbol-Parcial-minimo-Prim-IA
 **Autor:** Alejandro Aguirre Díaz.  
 **Descripción:** Este repositorio contiene un simulador Árbol Parcial mínimo de Prim programado en Python.  
-**Última modificación:** Martes 11 de noviembre del 2025. 
+**Última modificación:** Martes 25 de noviembre del 2025. 
 
 ## ¿Qué es?
 El Árbol Parcial mínimo (APM) es un subconjunto de aristas de un grafo conectado que conecta todos los vértices con el menor peso total posible. El algoritmo de Prim construye un APM creciendo un árbol desde un vértice inicial y, en cada paso, añade la arista de menor peso que conecta el árbol actual con un vértice fuera de él. Implementaciones eficientes usan una cola de prioridad (heap).
@@ -32,13 +32,19 @@ Complejidad típica:
 - Automatizar pruebas de escalabilidad usando grafos sintéticos y medir tiempo/uso de memoria; elegir estructuras de datos óptimas según tamaño/densidad del grafo.
 - Extender el simulador para soportar restricciones prácticas (capacidad de aristas, costos fijos, requisitos de redundancia) y generar propuestas de ingeniería.
 
-## Notas técnicas y contrato mínimo
-- Entrada esperada: grafo conectado; si no está conectado, el algoritmo produce un bosque (APM por componente).
-- API sugerida (ejemplo conceptual):
-  - `prim(graph, start_vertex) -> (edges_in_mst, total_weight)`
-  - `graph` en formato de lista de adyacencia o lista de aristas.
-- Tests mínimos:
-  - Grafo simple de 4 vértices con pesos conocidos.
-  - Grafos densos y dispersos para comparar tiempos.
-  - Caso no conectado: comprobar detección y manejo (error o forest result).
-- Documentar complejidad y dependencias; incluir ejemplos de uso y visualizaciones para facilitar comprensión.
+## Glosario técnico
+
+- **APM (Árbol Parcial Mínimo)**: Subconjunto de aristas de un grafo que conecta todos los vértices con el menor peso total posible. En inglés se conoce como MST (Minimum Spanning Tree).
+- **Grafo**: Estructura compuesta por vértices (nodos) y aristas (arcos) que conectan pares de vértices. Puede ser dirigido o no dirigido.
+- **Vértice (Nodo)**: Unidad básica de un grafo que representa una entidad o punto.
+- **Arista (Arco)**: Conexión entre dos vértices en el grafo; puede llevar asociado un **peso** (coste, distancia, etc.).
+- **Peso**: Valor numérico asociado a una arista que representa coste, distancia, capacidad u otra métrica relevante.
+- **Cola de prioridad (Heap)**: Estructura de datos que permite extraer rápidamente el elemento con la prioridad (por ejemplo, menor peso). En Python se suele usar el módulo `heapq`.
+- **Lista de adyacencia**: Representación de grafos donde cada vértice mantiene una lista de sus vecinos (aristas incidentes). Es eficiente para grafos dispersos.
+- **Componente conexa**: Subconjunto de vértices de un grafo no dirigido en el que existe al menos un camino entre cualquier par de vértices del subconjunto.
+- **Complejidad temporal**: Estimación del coste en tiempo de ejecución de un algoritmo en función del tamaño de la entrada. Para Prim con heap suele ser $O(E \log V)$.
+- **Heurística greedy**: Estrategia algorítmica que toma decisiones locales óptimas (por ejemplo, elegir la arista de menor peso) con la esperanza de llegar a una solución global óptima.
+- **NetworkX**: Biblioteca de Python para la creación, manipulación y estudio de la estructura, dinámica y funciones de grafos complejos; útil para prototipado y visualización.
+- **DOT / Graphviz**: Formato y herramientas para describir y renderizar grafos visualmente; útil para exportar y visualizar APMs y grafos.
+
+
